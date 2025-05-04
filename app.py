@@ -14,7 +14,10 @@ st.markdown("<h4 style='text-align: center; color: gray;'>Powered by Random Fore
 # 📤 File Upload
 uploaded_file = st.file_uploader("Upload a CSV file with transaction data", type=["csv"])
 if uploaded_file is not None:
-    df = pd.read_csv(uploaded_file)
+    df = pd.read_csv(uploaded_file.getvalue().decode("utf-8"))
+    import io
+    df = pd.read_csv(io.StringIO(df))
+
     st.subheader("📄 Raw Uploaded Data")
     st.dataframe(df.head(10))
 
